@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="com.project.songer1993.sentire.LibraryVibrationPatterns">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl1"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etEffectSequence"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/btnPlay1"
+            android:layout_toStartOf="@+id/btnPlay1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            android:id="@+id/btnPlay1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Insert &apos;Effect1, Effect2,...&apos; "
+            android:id="@+id/textView"
+            android:layout_below="@+id/etEffectSequence"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:id="@+id/btnClear1"
+            android:layout_below="@+id/btnPlay1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR select effects below"
+            android:id="@+id/textView2"
+            android:layout_alignBottom="@+id/btnClear1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+    </RelativeLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="61dp"
+        android:layout_marginStart="61dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="61dp"
+        android:layout_marginStart="61dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl2">
+
+        <GridView
+            android:id="@+id/gridViewCustom"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:columnWidth="80dp"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+</LinearLayout>
