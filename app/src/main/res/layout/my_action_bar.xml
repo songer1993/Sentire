@@ -22,8 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:textAllCaps="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
+        android:textColor="@color/secondaryText"
         android:layout_toRightOf="@+id/boom"
         android:layout_toEndOf="@+id/boom"
         />

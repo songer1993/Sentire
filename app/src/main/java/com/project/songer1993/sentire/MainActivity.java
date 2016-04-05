@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeData();
 
-        RVAdapter adapter = new RVAdapter(features);
+        MyRVAdapter adapter = new MyRVAdapter(features);
         rv.setAdapter(adapter);
 
         rv.setOnClickListener(new View.OnClickListener() {
@@ -95,4 +95,5 @@ public class MainActivity extends AppCompatActivity {
             features.add(new Feature(card_drawablesResources[i], card_names[i], card_descriptions[i], card_colors[i]));
         }
     }
+
 }

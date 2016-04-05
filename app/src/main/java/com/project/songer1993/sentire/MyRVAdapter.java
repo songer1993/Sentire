@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by songer1993 on 03/04/2016.
  */
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FeatureViewHolder>{
+public class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.FeatureViewHolder>{
 
     public static class FeatureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         static CardView cv;
@@ -37,16 +37,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FeatureViewHolder>
             Intent intent;
             switch (getPosition()){
                 case 0:
-                    intent = new Intent(v.getContext(), LibraryVibrationPatterns.class);
+                    intent = new Intent(v.getContext(), DesignLibraryVibrationPatterns.class);
                     break;
                 case 1:
-                    intent = new Intent(v.getContext(), RealtimeVibrationPatterns.class);
+                    intent = new Intent(v.getContext(), DesignRealtimeVibrationPatterns.class);
                     break;
                 case 2:
-                    intent = new Intent(v.getContext(), LightPatterns.class);
+                    intent = new Intent(v.getContext(), DesignLightPatterns.class);
                     break;
                 case 3:
-                    intent = new Intent(v.getContext(), SavedPatterns.class);
+                    intent = new Intent(v.getContext(), SeeSavedPatterns.class);
                     break;
                 case 4:
                     intent = new Intent(v.getContext(), Demo.class);
@@ -62,7 +62,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FeatureViewHolder>
 
     List<MainActivity.Feature> features;
 
-    RVAdapter(List<MainActivity.Feature> features){
+    MyRVAdapter(List<MainActivity.Feature> features){
         this.features = features;
     }
 

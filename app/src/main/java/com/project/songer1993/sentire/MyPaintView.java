@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Point;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,10 +22,6 @@ import java.util.List;
 public class MyPaintView extends View {
     public int viewHeight = 0;
     public int viewWidth = 0;
-
-    //private Path path = new Path();
-    //private Paint paint;
-
 
     private List<Point> allPoints=new ArrayList<Point>();
     //接受context以及属性集合(宽度，高度等)

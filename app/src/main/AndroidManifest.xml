@@ -18,11 +18,11 @@
         <activity android:name=".MainActivity"
                   android:launchMode="singleTop"/>
         <activity
-            android:name=".LibraryVibrationPatterns"
+            android:name=".DesignLibraryVibrationPatterns"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".RealtimeVibrationPatterns" />
-        <activity android:name=".LightPatterns" />
-        <activity android:name=".SavedPatterns" />
+        <activity android:name=".DesignRealtimeVibrationPatterns" />
+        <activity android:name=".DesignLightPatterns" />
+        <activity android:name=".SeeSavedPatterns" />
         <activity android:name=".Demo" />
         <activity android:name=".MyDeviceList"></activity>
     </application>

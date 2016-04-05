@@ -47,7 +47,7 @@
                 android:layout_alignParentTop="true"
                 android:textSize="20sp"
                 android:text="card name"
-                android:textColor="@color/primaryText"/>
+                android:textColor="@color/primaryText" />
 
             <TextView
                 android:layout_width="wrap_content"

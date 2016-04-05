@@ -1,6 +1,5 @@
 package com.project.songer1993.sentire;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,13 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,27 +28,31 @@ import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 
-public class LibraryVibrationPatterns extends AppCompatActivity {
+public class DesignLibraryVibrationPatterns extends AppCompatActivity {
 
     private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
 
+    RadioButton rbHappy, rbFearful, rbSurprised, rbSad, rbDisgusted, rbAngry;
+    private RadioGroup rgEmotions;
+
 
     Button btnPlay;
     Button btnClear;
     EditText etEffectSequence;
     GridView gridView;
-    GridViewCustomAdapter grisViewCustomeAdapter;
+    MyGVAdapter myGVAdapter;
     String effectSequence = "";
     boolean played = false;
-    private final static int DIALOG=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library_vibration_patterns);
+        setContentView(R.layout.activity_design_library_vibration_patterns);
+
+        ConnectBT.bt.send("design1", true);
 
         // Action Bar
         mContext = this;
@@ -68,25 +70,20 @@ public class LibraryVibrationPatterns extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0,0);
-        }
 
         etEffectSequence = (EditText)findViewById(R.id.etEffectSequence);
 
-        final Dialog dialog = onCreateDialog(DIALOG);
-
         gridView=(GridView)findViewById(R.id.gridViewCustom);
         // Create the Custom Adapter Object
-        grisViewCustomeAdapter = new GridViewCustomAdapter(mContext);
+        myGVAdapter = new MyGVAdapter(mContext);
         // Set the Adapter to GridView
-        gridView.setAdapter(grisViewCustomeAdapter);
+        gridView.setAdapter(myGVAdapter);
 
         // Handling touch/click Event on GridView Item
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                if (played){
+                if (played) {
                     played = false;
                     btnPlay.setText("Play");
                     btnPlay.setTextColor(getApplication().getResources().getColor(R.color.primaryText));
@@ -119,7 +116,6 @@ public class LibraryVibrationPatterns extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (played){
-                    dialog.show();
                     played = false;
                     btnPlay.setText("Play");
                     btnPlay.setTextColor(getApplication().getResources().getColor(R.color.primaryText));
@@ -146,215 +142,89 @@ public class LibraryVibrationPatterns extends AppCompatActivity {
                 played = false;
             }
         });
-    }
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog=null;
-        switch (id) {
-            case DIALOG:
-                AlertDialog.Builder builder=new android.app.AlertDialog.Builder(mContext);
-                //builder.setIcon(R.drawable.header);
-                builder.setTitle("Save as");
-
-                builder.setSingleChoiceItems(R.array.emotion, 0, new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which) {
-                        String emotion = getApplication().getResources().getStringArray(R.array.emotion)[which];
-                        switch (emotion){
-                            case "Happy":
-                                break;
-                            case "Sad":
-                                break;
-                            case "Surprised":
-                                break;
-                            case "Afraid":
-                                break;
-                            case "Angry":
-                                break;
-                            case "Disgusted":
-                                break;
-                        }
-                    }
-                });
-
-                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                dialog=builder.create();
-                break;
-        }
-        return dialog;
-    }
-
-    public class GridViewCustomAdapter extends ArrayAdapter
-    {
-        Context context;
 
 
-
-        public GridViewCustomAdapter(Context context)
-        {
-            super(context, 0);
-            this.context=context;
-
-        }
-
-        public int getCount() {
-            return mThumbIds.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            View row;
-
-            //if (row == null)
-            //{
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(R.layout.my_grid_row, parent, false);
+        rbHappy = (RadioButton) findViewById(R.id.rbHappy);
+        rbFearful = (RadioButton) findViewById(R.id.rbFearful);
+        rbSurprised = (RadioButton) findViewById(R.id.rbSurprised);
+        rbSad = (RadioButton) findViewById(R.id.rbSad);
+        rbDisgusted = (RadioButton) findViewById(R.id.rbDisgusted);
+        rbAngry = (RadioButton) findViewById(R.id.rbAngry);
 
 
-            TextView textViewTitle = (TextView) row.findViewById(R.id.textView);
-            ImageView imageViewIte = (ImageView) row.findViewById(R.id.imageView);
+        rgEmotions = (RadioGroup)findViewById(R.id.rgEmotions);
+        rgEmotions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if(checkedId == R.id.rbHappy) {
+                    rbHappy.setButtonDrawable(R.drawable.icon_happy);
+                    rbFearful.setButtonDrawable(R.drawable.icon_fearful0);
+                    rbSurprised.setButtonDrawable(R.drawable.icon_surprised0);
+                    rbSad.setButtonDrawable(R.drawable.icon_sad0);
+                    rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted0);
+                    rbAngry.setButtonDrawable(R.drawable.icon_angry0);
+                    Toast.makeText(getApplicationContext(), "type selected: Happy",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if(checkedId == R.id.rbFearful) {
+                    rbFearful.setButtonDrawable(R.drawable.icon_fearful);
+                    rbHappy.setButtonDrawable(R.drawable.icon_happy0);
+                    rbSurprised.setButtonDrawable(R.drawable.icon_surprised0);
+                    rbSad.setButtonDrawable(R.drawable.icon_sad0);
+                    rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted0);
+                    rbAngry.setButtonDrawable(R.drawable.icon_angry0);
+                    Toast.makeText(getApplicationContext(), "type selected: Fearful",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if(checkedId == R.id.rbSurprised) {
+                    rbSurprised.setButtonDrawable(R.drawable.icon_surprised);
+                    rbHappy.setButtonDrawable(R.drawable.icon_happy0);
+                    rbFearful.setButtonDrawable(R.drawable.icon_fearful0);
+                    rbSad.setButtonDrawable(R.drawable.icon_sad0);
+                    rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted0);
+                    rbAngry.setButtonDrawable(R.drawable.icon_angry0);
+                    Toast.makeText(getApplicationContext(), "type selected: Surprised",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if(checkedId == R.id.rbSad) {
+                    rbSad.setButtonDrawable(R.drawable.icon_sad);
+                    rbHappy.setButtonDrawable(R.drawable.icon_happy0);
+                    rbFearful.setButtonDrawable(R.drawable.icon_fearful0);
+                    rbSurprised.setButtonDrawable(R.drawable.icon_surprised0);
+                    rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted0);
+                    rbAngry.setButtonDrawable(R.drawable.icon_angry0);
+                    Toast.makeText(getApplicationContext(), "type selected: Sad",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if(checkedId == R.id.rbDisgusted) {
+                    rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted);
+                    rbHappy.setButtonDrawable(R.drawable.icon_happy0);
+                    rbFearful.setButtonDrawable(R.drawable.icon_fearful0);
+                    rbSurprised.setButtonDrawable(R.drawable.icon_surprised0);
+                    rbSad.setButtonDrawable(R.drawable.icon_sad0);
+                    rbAngry.setButtonDrawable(R.drawable.icon_angry0);
+                    Toast.makeText(getApplicationContext(), "type selected: Disgusted",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    rbAngry.setButtonDrawable(R.drawable.icon_angry);
+                    rbHappy.setButtonDrawable(R.drawable.icon_happy0);
+                    rbFearful.setButtonDrawable(R.drawable.icon_fearful0);
+                    rbSurprised.setButtonDrawable(R.drawable.icon_surprised0);
+                    rbSad.setButtonDrawable(R.drawable.icon_sad0);
+                    rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted0);
+                    Toast.makeText(getApplicationContext(), "type selected: Angry",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
 
-            textViewTitle.setText(mEffectDescriptions[position]);
-            imageViewIte.setImageResource(mThumbIds[position]);
-
-            //}
-
-
-
-            return row;
-
-        }
-
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.drawable.click0, R.drawable.click0, R.drawable.click0,
-                R.drawable.click0, R.drawable.click0, R.drawable.click0,
-                R.drawable.bump, R.drawable.bump, R.drawable.bump,
-                R.drawable.click1, R.drawable.click1, R.drawable.click2,
-                R.drawable.fuzz, R.drawable.buzz0,
-                R.drawable.alert, R.drawable.alert,
-                R.drawable.click0, R.drawable.click0, R.drawable.click0, R.drawable.click0,
-                R.drawable.click0, R.drawable.click0, R.drawable.click0,
-                R.drawable.tick, R.drawable.tick, R.drawable.tick,
-                R.drawable.click1, R.drawable.click1, R.drawable.click1, R.drawable.click1,
-                R.drawable.click1, R.drawable.click1, R.drawable.click1,
-                R.drawable.tick, R.drawable.tick, R.drawable.tick,
-                R.drawable.click1, R.drawable.click1, R.drawable.click1, R.drawable.click1,
-                R.drawable.click1, R.drawable.click1, R.drawable.click1,
-                R.drawable.tick, R.drawable.tick, R.drawable.tick,
-                R.drawable.buzz0, R.drawable.buzz0, R.drawable.buzz0, R.drawable.buzz0, R.drawable.buzz0,
-                R.drawable.pulse, R.drawable.pulse, R.drawable.pulse, R.drawable.pulse, R.drawable.pulse, R.drawable.pulse,
-                R.drawable.click3, R.drawable.click3, R.drawable.click3,
-                R.drawable.click3, R.drawable.click3, R.drawable.click3,
-                R.drawable.hum, R.drawable.hum, R.drawable.hum,
-                R.drawable.hum, R.drawable.hum, R.drawable.hum,
-                R.drawable.ramp_down_full, R.drawable.ramp_down_full,
-                R.drawable.ramp_down_full, R.drawable.ramp_down_full,
-                R.drawable.ramp_down_full, R.drawable.ramp_down_full,
-                R.drawable.ramp_down_full, R.drawable.ramp_down_full,
-                R.drawable.ramp_down_full, R.drawable.ramp_down_full,
-                R.drawable.ramp_down_full, R.drawable.ramp_down_full,
-                R.drawable.ramp_up_full, R.drawable.ramp_up_full,
-                R.drawable.ramp_up_full, R.drawable.ramp_up_full,
-                R.drawable.ramp_up_full, R.drawable.ramp_up_full,
-                R.drawable.ramp_up_full, R.drawable.ramp_up_full,
-                R.drawable.ramp_up_full, R.drawable.ramp_up_full,
-                R.drawable.ramp_up_full, R.drawable.ramp_up_full,
-                R.drawable.ramp_down_half, R.drawable.ramp_down_half,
-                R.drawable.ramp_down_half, R.drawable.ramp_down_half,
-                R.drawable.ramp_down_half, R.drawable.ramp_down_half,
-                R.drawable.ramp_down_half, R.drawable.ramp_down_half,
-                R.drawable.ramp_down_half, R.drawable.ramp_down_half,
-                R.drawable.ramp_down_half, R.drawable.ramp_down_half,
-                R.drawable.ramp_up_half, R.drawable.ramp_up_half,
-                R.drawable.ramp_up_half, R.drawable.ramp_up_half,
-                R.drawable.ramp_up_half, R.drawable.ramp_up_half,
-                R.drawable.ramp_up_half, R.drawable.ramp_up_half,
-                R.drawable.ramp_up_half, R.drawable.ramp_up_half,
-                R.drawable.ramp_up_half, R.drawable.ramp_up_half,
-                R.drawable.buzz0,
-                R.drawable.hum,
-                R.drawable.hum,
-                R.drawable.hum,
-                R.drawable.hum,
-                R.drawable.hum
-        };
-
-        private String[] mEffectDescriptions = {
-                "Strong, 100%", "Strong, 60%", "Strong, 30%",
-                "Sharp, 100%", "Sharp, 60%", "Sharp, 30%",
-                "Soft, 100%", "Soft, 60%", "Soft, 30%",
-                "Double, 100%", "Double, 60%", "Triple, 100%",
-                "Soft, 60%", "Strong, 100%",
-                "750ms, 100%", "1000ms, 100%",
-                "Strong, 100%", "Strong, 80%", "Strong, 60%", "Strong, 30%",
-                "Medium, 100%", "Medium, 80%", "Medium, 60%",
-                "Sharp, 100%", "Sharp, 80%", "Sharp, 60%",
-                "Short Double Strong, 100%", "Short Double Strong, 80%",
-                "Short Double Strong, 60%", "Short Double Strong, 30%",
-                "Short Double Medium, 100%", "Short Double Medium, 80%", "Short Double Medium, 60%",
-                "Short Double Sharp, 100%", "Short Double Sharp, 80%", "Short Double Sharp, 60%",
-                "Long Double Strong1 100%", "Long Double Strong, 80%",
-                "Long Double Strong3 60%", "Long Double Strong, 30%",
-                "Long Double Medium, 100%", "Long Double Medium, 80%", "Long Double Medium, 60%",
-                "Long Double Sharp, 100%", "Long Double Sharp, 80%", "Long Double Sharp, 60%",
-                "100%", "80%", "60%", "40%", "20%",
-                "Strong 1, 100%", "Strong 2, 60%",
-                "Medium 1, 100%", "Medium 2, 60%",
-                "Sharp 1, 100%", "Sharp 2, 60%",
-                "Transition 1, 100%", "Transition 2, 80%", "Transition 3, 60%",
-                "Transition 4, 40%", "Transition 5, 20%", "Transition 1, 10%",
-                "100%", "80%", "60%",
-                "40%", "20%", "10%",
-                "Long & Smooth 1", "Long & Smooth 2",
-                "Medium & Smooth 1", "Medium & Smooth 2",
-                "Short & Smooth 1", "Short & Smooth 2",
-                "Long & Sharp 1", "Long & Sharp 2",
-                "Sharp 1", "Medium & Sharp 2",
-                "Short & Sharp 1", "Short & Sharp 2",
-                "Long & Smooth 1", "Long & Smooth 2",
-                "Medium & Smooth 1", "Medium & Smooth 2",
-                "Short & Smooth 1", "Short & Smooth 2",
-                "Long & Sharp 1", "Long & Sharp 2",
-                "Medium & Sharp1", "Medium & Sharp 2",
-                "Short & Sharp 1", "Short & Sharp 2",
-                "Long & Smooth 1", "Long & Smooth 2",
-                "Medium & Smooth 1", "Medium & Smooth 2",
-                "Short & Smooth 1%", "Short & Smooth 2",
-                "Long & Sharp 1", "Long & Sharp 2",
-                "Sharp 1", "Medium & Sharp 2",
-                "Short & Sharp 1", "Short & Sharp 2",
-                "Long & Smooth 1", "Long & Smooth 2",
-                "Medium & Smooth 1", "Medium & Smooth 2",
-                "Short & Smooth 1", "Short & Smooth 2",
-                "Long & Sharp 1", "Long & Sharp 2",
-                "Medium & Sharp1", "Medium & Sharp 2",
-                "Short & Sharp 1", "Short & Sharp 2",
-                "Long, 100%",
-                "Smooth, 50%",
-                "Smooth, 40%",
-                "Smooth, 30%",
-                "Smooth, 20%",
-                "Smooth, 10%",
-        };
-
-
+        });
 
 
     }
+
 
     private String[] mEffectNames = {
             "Strong Click - 100%", "Strong Click - 60%", "Strong Click - 30%",
@@ -481,19 +351,19 @@ public class LibraryVibrationPatterns extends AppCompatActivity {
                         Intent intent;
                         switch (buttonIndex) {
                             case 0:
-                                intent = new Intent(mContext, RealtimeVibrationPatterns.class);
+                                intent = new Intent(mContext, DesignRealtimeVibrationPatterns.class);
                                 break;
                             case 1:
-                                intent = new Intent(mContext, LightPatterns.class);
+                                intent = new Intent(mContext, DesignLightPatterns.class);
                                 break;
                             case 2:
-                                intent = new Intent(mContext, SavedPatterns.class);
+                                intent = new Intent(mContext, SeeSavedPatterns.class);
                                 break;
                             case 3:
                                 intent = new Intent(mContext, Demo.class);
                                 break;
                             default:
-                                intent = new Intent(mContext, LibraryVibrationPatterns.class);
+                                intent = new Intent(mContext, DesignLibraryVibrationPatterns.class);
                                 break;
 
                         }

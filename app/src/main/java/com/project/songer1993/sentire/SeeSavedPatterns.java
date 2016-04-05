@@ -19,7 +19,7 @@ import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 
-public class SavedPatterns extends AppCompatActivity {
+public class SeeSavedPatterns extends AppCompatActivity {
 
     private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
@@ -29,7 +29,9 @@ public class SavedPatterns extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_patterns);
+        setContentView(R.layout.activity_see_saved_patterns);
+
+        ConnectBT.bt.send("design4", true);
 
         mContext = this;
         mActionBar = getSupportActionBar();
@@ -119,19 +121,19 @@ public class SavedPatterns extends AppCompatActivity {
                         Intent intent;
                         switch (buttonIndex) {
                             case 0:
-                                intent = new Intent(mContext, LibraryVibrationPatterns.class);
+                                intent = new Intent(mContext, DesignLibraryVibrationPatterns.class);
                                 break;
                             case 1:
-                                intent = new Intent(mContext, RealtimeVibrationPatterns.class);
+                                intent = new Intent(mContext, DesignRealtimeVibrationPatterns.class);
                                 break;
                             case 2:
-                                intent = new Intent(mContext, LightPatterns.class);
+                                intent = new Intent(mContext, DesignLightPatterns.class);
                                 break;
                             case 3:
                                 intent = new Intent(mContext, Demo.class);
                                 break;
                             default:
-                                intent = new Intent(mContext, SavedPatterns.class);
+                                intent = new Intent(mContext, SeeSavedPatterns.class);
                                 break;
 
                         }

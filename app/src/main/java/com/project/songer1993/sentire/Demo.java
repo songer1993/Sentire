@@ -29,7 +29,9 @@ public class Demo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_realtime_vibration_patterns);
+        setContentView(R.layout.activity_design_realtime_vibration_patterns);
+
+        ConnectBT.bt.send("standard", true);
 
         mContext = this;
         mActionBar = getSupportActionBar();
@@ -119,16 +121,16 @@ public class Demo extends AppCompatActivity {
                         Intent intent;
                         switch (buttonIndex) {
                             case 0:
-                                intent = new Intent(mContext, LibraryVibrationPatterns.class);
+                                intent = new Intent(mContext, DesignLibraryVibrationPatterns.class);
                                 break;
                             case 1:
-                                intent = new Intent(mContext, RealtimeVibrationPatterns.class);
+                                intent = new Intent(mContext, DesignRealtimeVibrationPatterns.class);
                                 break;
                             case 2:
-                                intent = new Intent(mContext, LightPatterns.class);
+                                intent = new Intent(mContext, DesignLightPatterns.class);
                                 break;
                             case 3:
-                                intent = new Intent(mContext, SavedPatterns.class);
+                                intent = new Intent(mContext, SeeSavedPatterns.class);
                                 break;
                             default:
                                 intent = new Intent(mContext, Demo.class);
