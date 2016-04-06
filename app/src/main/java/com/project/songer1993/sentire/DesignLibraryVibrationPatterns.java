@@ -1,12 +1,9 @@
 package com.project.songer1993.sentire;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +19,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+
+import java.net.MalformedURLException;
+
+import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 
 public class DesignLibraryVibrationPatterns extends AppCompatActivity {
 
@@ -39,8 +44,16 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
     private RadioGroup rgEmotions;
 
 
-    Button btnPlay;
-    Button btnClear;
+    private MobileServiceClient mClient;
+    private MobileServiceTable mTable;
+    private VibrationPattern mVibrationPattern;
+    private String mType = "Library Effect";
+    private String mEmotion;
+    private String mValue;
+    private int mScore;
+
+
+    Button btnPlay, btnClear;
     EditText etEffectSequence;
     GridView gridView;
     MyGVAdapter myGVAdapter;
@@ -53,15 +66,37 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         setContentView(R.layout.activity_design_library_vibration_patterns);
 
         ConnectBT.bt.send("design1", true);
+        ConnectBT.bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
+            public void onDataReceived(byte[] data, String message) {
+                // Do something when data incoming
+                int newRate = Integer.valueOf(message);
+                mScore = mVibrationPattern.getScore() + newRate;
+                mVibrationPattern.setScore(mScore);
+
+                mTable.update(mVibrationPattern, new TableOperationCallback<VibrationPattern>() {
+                    public void onCompleted(VibrationPattern entity, Exception exception, ServiceFilterResponse response) {
+                        if (exception == null) {
+                            Toast.makeText(getApplicationContext(), "Score updated!",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Save updating failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
 
         // Action Bar
         mContext = this;
         mActionBar = getSupportActionBar();
+        mActionBar.setElevation(0);
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
-        View mCustomView = mInflater.inflate(R.layout.my_action_bar, null);
+        final View mCustomView = mInflater.inflate(R.layout.my_action_bar, null);
         TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
         mTitleTextView.setText("Library Vibration Patterns");
 
@@ -71,6 +106,19 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
 
 
+        // Azure
+        try {
+            mClient = new MobileServiceClient(
+                    "https://songerarduinotest.azure-mobile.net/",
+                    "IBmOdZkslBSsjrCkJeQNvpjHOpTQYr42",
+                    this
+            );
+            mTable = mClient.getTable(VibrationPattern.class);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        //
         etEffectSequence = (EditText)findViewById(R.id.etEffectSequence);
 
         gridView=(GridView)findViewById(R.id.gridViewCustom);
@@ -115,14 +163,32 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         btnPlay = (Button)findViewById(R.id.btnPlay1);
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (played){
+                if (played) {
                     played = false;
                     btnPlay.setText("Play");
-                    btnPlay.setTextColor(getApplication().getResources().getColor(R.color.primaryText));
+                    btnPlay.setTextColor(getApplication().getResources().getColor(R.color.secondaryText));
+
+                    mVibrationPattern = new VibrationPattern();
+                    mVibrationPattern.setEmotion(mEmotion);
+                    mVibrationPattern.setType(mType);
+                    mVibrationPattern.setValue(mValue);
+                    mVibrationPattern.setScore(0);
+                    mTable.insert(mVibrationPattern, new TableOperationCallback<VibrationPattern>() {
+                        public void onCompleted(VibrationPattern entity, Exception exception, ServiceFilterResponse response) {
+                            if (exception == null) {
+                                Toast.makeText(getApplicationContext(), "Saved!",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Save failed",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
                 else {
                     if (etEffectSequence.getText().length() != 0) {
-                        ConnectBT.bt.send(("1:"+etEffectSequence.getText().toString()), true);
+                        mValue = "1: "+etEffectSequence.getText().toString();
+                        ConnectBT.bt.send(mValue, true);
                         played = true;
                         btnPlay.setText("Save?");
                         btnPlay.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
@@ -135,10 +201,10 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnPlay.setText("Play");
-                btnPlay.setTextColor(getApplication().getResources().getColor(R.color.colorPrimary));
                 effectSequence = "";
                 etEffectSequence.setText("");
+                btnPlay.setText("Play");
+                btnPlay.setTextColor(getApplication().getResources().getColor(R.color.secondaryText));
                 played = false;
             }
         });
@@ -167,6 +233,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                     rbAngry.setButtonDrawable(R.drawable.icon_angry0);
                     Toast.makeText(getApplicationContext(), "type selected: Happy",
                             Toast.LENGTH_SHORT).show();
+                    mEmotion = "Happy";
                 }
                 else if(checkedId == R.id.rbFearful) {
                     rbFearful.setButtonDrawable(R.drawable.icon_fearful);
@@ -177,6 +244,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                     rbAngry.setButtonDrawable(R.drawable.icon_angry0);
                     Toast.makeText(getApplicationContext(), "type selected: Fearful",
                             Toast.LENGTH_SHORT).show();
+                    mEmotion = "Fearful";
                 }
                 else if(checkedId == R.id.rbSurprised) {
                     rbSurprised.setButtonDrawable(R.drawable.icon_surprised);
@@ -187,6 +255,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                     rbAngry.setButtonDrawable(R.drawable.icon_angry0);
                     Toast.makeText(getApplicationContext(), "type selected: Surprised",
                             Toast.LENGTH_SHORT).show();
+                    mEmotion = "Surprised";
                 }
                 else if(checkedId == R.id.rbSad) {
                     rbSad.setButtonDrawable(R.drawable.icon_sad);
@@ -197,6 +266,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                     rbAngry.setButtonDrawable(R.drawable.icon_angry0);
                     Toast.makeText(getApplicationContext(), "type selected: Sad",
                             Toast.LENGTH_SHORT).show();
+                    mEmotion = "Sad";
                 }
                 else if(checkedId == R.id.rbDisgusted) {
                     rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted);
@@ -207,6 +277,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                     rbAngry.setButtonDrawable(R.drawable.icon_angry0);
                     Toast.makeText(getApplicationContext(), "type selected: Disgusted",
                             Toast.LENGTH_SHORT).show();
+                    mEmotion = "Disgusted";
                 }
                 else {
                     rbAngry.setButtonDrawable(R.drawable.icon_angry);
@@ -217,6 +288,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                     rbDisgusted.setButtonDrawable(R.drawable.icon_disgusted0);
                     Toast.makeText(getApplicationContext(), "type selected: Angry",
                             Toast.LENGTH_SHORT).show();
+                    mEmotion = "Angry";
                 }
             }
 
@@ -360,7 +432,7 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                                 intent = new Intent(mContext, SeeSavedPatterns.class);
                                 break;
                             case 3:
-                                intent = new Intent(mContext, Demo.class);
+                                intent = new Intent(mContext, PlayDemo.class);
                                 break;
                             default:
                                 intent = new Intent(mContext, DesignLibraryVibrationPatterns.class);

@@ -2,7 +2,6 @@ package com.project.songer1993.sentire;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
@@ -40,7 +39,7 @@ public class MyPaintView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         Paint p=new Paint();//依靠此类开始画线
-        p.setColor(Color.RED);
+        p.setColor(getResources().getColor(R.color.colorPrimaryDark));
         if(MyPaintView.this.allPoints.size()>1){
 //如果有坐标点，开始绘图
             Iterator<Point> iter=MyPaintView.this.allPoints.iterator();
@@ -70,9 +69,7 @@ public class MyPaintView extends View {
 //用户按下，表示重新开始保存点
                 MyPaintView.this.allPoints=new ArrayList<Point>();
                 MyPaintView.this.allPoints.add(p);
-//                path = new Path();
-//                path.moveTo(p.x, p.y);
-//                path.lineTo(p.x, p.y);
+
             }
             else if(event.getAction()==MotionEvent.ACTION_UP){
 //用户松开
@@ -122,7 +119,7 @@ public class MyPaintView extends View {
         path = getPath();
         PathMeasure pm = new PathMeasure(path, false);
         float distance = 0f;
-        float samplingPeriod = viewWidth / numSamples;
+        float samplingPeriod = (float)viewWidth / numSamples;
         float[] aCoordinates = new float[2];
 
         while ((distance < pm.getLength())) {
@@ -141,6 +138,7 @@ public class MyPaintView extends View {
 
     public void clearPoints(){
         MyPaintView.this.postInvalidate();//重绘图像
-        allPoints.clear();
+        MyPaintView.this.allPoints.clear();
+        MyPaintView.this.allPoints=new ArrayList<Point>();
     }
 }

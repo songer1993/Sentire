@@ -18,23 +18,28 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+import com.szugyi.circlemenu.view.CircleImageView;
+import com.szugyi.circlemenu.view.CircleLayout;
 
-public class Demo extends AppCompatActivity {
+public class PlayDemo extends AppCompatActivity {
 
     private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
 
+    private CircleLayout circleMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design_realtime_vibration_patterns);
+        setContentView(R.layout.activity_play_demo);
 
         ConnectBT.bt.send("standard", true);
 
         mContext = this;
         mActionBar = getSupportActionBar();
+        mActionBar.setElevation(0);
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
@@ -48,9 +53,35 @@ public class Demo extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0,0);
-        }
+
+        circleMenu = (CircleLayout)findViewById(R.id.cmEmotion);
+        circleMenu.setOnItemClickListener(new CircleLayout.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view) {
+                switch (view.getId()){
+                    case R.id.btnHappy:
+                        ConnectBT.bt.send("happy", true);
+                        System.out.println("1");
+                        break;
+                    case R.id.btnFearful:
+                        ConnectBT.bt.send("fearful", true);
+                        break;
+                    case R.id.btnSurprised:
+                        ConnectBT.bt.send("surprised", true);
+                        break;
+                    case R.id.btnSad:
+                        ConnectBT.bt.send("sad", true);
+                        break;
+                    case R.id.btnDisgusted:
+                        ConnectBT.bt.send("disgusted", true);
+                        break;
+                    case R.id.btnAngry:
+                        ConnectBT.bt.send("angry", true);
+                        break;
+
+                }
+            }
+        });
     }
 
 
@@ -133,7 +164,7 @@ public class Demo extends AppCompatActivity {
                                 intent = new Intent(mContext, SeeSavedPatterns.class);
                                 break;
                             default:
-                                intent = new Intent(mContext, Demo.class);
+                                intent = new Intent(mContext, PlayDemo.class);
                                 break;
                         }
                         startActivity(intent);

@@ -32,6 +32,8 @@ public class ConnectBT extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect_bt);
 
+        getSupportActionBar().setElevation(0);
+
         bt = new BluetoothSPP(this);
         final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
         final Handler handler=new Handler();

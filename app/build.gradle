@@ -29,6 +29,16 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.nightonke:boommenu:1.0.6'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.QuadFlask:colorpicker:0.0.10'
+    compile 'com.github.channguyen:rsv:1.0.1'
+    compile 'com.github.szugyi:Android-CircleMenu:1.1.1'
+
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.microsoft.azure:azure-mobile-services-android-sdk:2.0.3'
+    compile (group: 'com.microsoft.azure', name: 'azure-notifications-handler', version: '1.0.1', ext: 'jar')
 
 
 }

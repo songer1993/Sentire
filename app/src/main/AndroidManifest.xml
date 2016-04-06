@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.project.songer1993.sentire">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,9 +25,9 @@
             android:name=".DesignLibraryVibrationPatterns"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".DesignRealtimeVibrationPatterns" />
-        <activity android:name=".DesignLightPatterns" />
+        <activity android:name=".DesignLightPatterns"/>
         <activity android:name=".SeeSavedPatterns" />
-        <activity android:name=".Demo" />
+        <activity android:name=".PlayDemo" />
         <activity android:name=".MyDeviceList"></activity>
     </application>
 

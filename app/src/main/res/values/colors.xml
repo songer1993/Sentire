@@ -24,6 +24,7 @@
     <color name="colorBackground4">#eef0f2</color>
 
     <color name="colorComplete">#63d13e</color>
+    <color name="lineColor">#FE6DA8</color>
 
 
 </resources>

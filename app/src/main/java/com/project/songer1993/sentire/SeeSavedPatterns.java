@@ -35,6 +35,7 @@ public class SeeSavedPatterns extends AppCompatActivity {
 
         mContext = this;
         mActionBar = getSupportActionBar();
+        mActionBar.setElevation(0);
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
@@ -130,7 +131,7 @@ public class SeeSavedPatterns extends AppCompatActivity {
                                 intent = new Intent(mContext, DesignLightPatterns.class);
                                 break;
                             case 3:
-                                intent = new Intent(mContext, Demo.class);
+                                intent = new Intent(mContext, PlayDemo.class);
                                 break;
                             default:
                                 intent = new Intent(mContext, SeeSavedPatterns.class);

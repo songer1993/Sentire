@@ -49,7 +49,7 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.FeatureViewHol
                     intent = new Intent(v.getContext(), SeeSavedPatterns.class);
                     break;
                 case 4:
-                    intent = new Intent(v.getContext(), Demo.class);
+                    intent = new Intent(v.getContext(), PlayDemo.class);
                     break;
                 default:
                     intent = new Intent(v.getContext(), MainActivity.class);
