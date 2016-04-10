@@ -9,95 +9,65 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <it.gmariotti.cardslib.library.view.CardViewNative
-                android:id="@+id/cardHappy"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
-                style="@style/card_external"
-                />
+                android:text="New Button"
+                android:id="@+id/btnHappyList"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-            <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <it.gmariotti.cardslib.library.view.CardViewNative
-                android:id="@+id/cardFearful"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
-                style="@style/card_external"
-                />
+                android:text="New Button"
+                android:id="@+id/btnFearfulList"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/btnDisgustedList"
+                android:layout_toEndOf="@+id/btnDisgustedList" />
 
-            <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <it.gmariotti.cardslib.library.view.CardViewNative
-                android:id="@+id/cardSurprised"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
-                style="@style/card_external"
-                />
+                android:text="New Button"
+                android:id="@+id/btnSurprisedList"
+                android:layout_above="@+id/btnDisgustedList"
+                android:layout_toLeftOf="@+id/btnDisgustedList"
+                android:layout_toStartOf="@+id/btnDisgustedList" />
 
-            <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <it.gmariotti.cardslib.library.view.CardViewNative
-                android:id="@+id/cardSad"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
-                style="@style/card_external"
-                />
+                android:text="New Button"
+                android:id="@+id/btnSadList"
+                android:layout_alignBaseline="@+id/btnDisgustedList"
+                android:layout_alignBottom="@+id/btnDisgustedList"
+                android:layout_toRightOf="@+id/btnDisgustedList"
+                android:layout_toEndOf="@+id/btnDisgustedList" />
 
-            <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <it.gmariotti.cardslib.library.view.CardViewNative
-                android:id="@+id/cardDisgusted"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
-                style="@style/card_external"
-                />
+                android:text="New Button"
+                android:id="@+id/btnDisgustedList"
+                android:layout_above="@+id/btnAngryList"
+                android:layout_centerHorizontal="true" />
 
-            <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <it.gmariotti.cardslib.library.view.CardViewNative
-                android:id="@+id/cardAngry"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
-                style="@style/card_external"
-                />
-
-            <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
+                android:text="New Button"
+                android:id="@+id/btnAngryList"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="62dp" />
 
         </LinearLayout>
-
-
     </ScrollView>
-
 
 </RelativeLayout>

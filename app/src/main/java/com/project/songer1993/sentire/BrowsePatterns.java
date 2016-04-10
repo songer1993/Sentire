@@ -38,6 +38,7 @@ import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperati
 public class BrowsePatterns extends AppCompatActivity {
 
 
+    private String mEmotion;
 
     /**
      * Mobile Service Client reference
@@ -79,8 +80,11 @@ public class BrowsePatterns extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_emotion);
+        setContentView(R.layout.activity_browse_patterns);
 
+
+        mEmotion = getIntent().getExtras().getString("emotion");
+        setTitle(mEmotion);
 
         mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
@@ -302,7 +306,7 @@ public class BrowsePatterns extends AppCompatActivity {
      */
 
     private List<VibrationPattern> refreshVibrationPatternsFromMobileServiceTable() throws ExecutionException, InterruptedException {
-        return mVibrationPatternTable.where().startsWith("emotion", "Happy").execute().get();
+        return mVibrationPatternTable.where().startsWith("emotion", mEmotion).execute().get();
     }
 
     /**
@@ -310,7 +314,7 @@ public class BrowsePatterns extends AppCompatActivity {
      */
 
     private List<LightPattern> refreshLightPatternsFromMobileServiceTable() throws ExecutionException, InterruptedException {
-        return mLightPatternTable.where().startsWith("emotion", "Happy").execute().get();
+        return mLightPatternTable.where().startsWith("emotion", mEmotion).execute().get();
     }
 
     /**

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +25,19 @@ import com.nightonke.boommenu.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.view.CardListView;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 
-public class SeeSavedPatterns extends AppCompatActivity {
+public class SeeSavedPatterns extends AppCompatActivity implements View.OnClickListener{
 
     private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
+    private Button btnHappyList, btnFearfulList, btnSurprisedList, btnSadList, btnDisgustedList, btnAngryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,48 +62,47 @@ public class SeeSavedPatterns extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
+        btnHappyList = (Button)findViewById(R.id.btnHappyList);
+        btnFearfulList = (Button)findViewById(R.id.btnFearfulList);
+        btnSurprisedList = (Button)findViewById(R.id.btnSurprisedList);
+        btnSadList = (Button)findViewById(R.id.btnSadList);
+        btnDisgustedList = (Button)findViewById(R.id.btnDisgustedList);
+        btnAngryList = (Button)findViewById(R.id.btnAngryList);
 
-        ArrayList<MyPatternCard> cards = new ArrayList<MyPatternCard>();
-
-        MyPatternCard cardHappy = new MyPatternCard(this, "Happy");
-        cardHappy.init();
-        //Set card in the cardView
-        CardViewNative cardViewHappy = (CardViewNative)findViewById(R.id.cardHappy);
-        cardViewHappy.setCard(cardHappy);
-
-        MyPatternCard cardFearful = new MyPatternCard(this, "Fearful");
-        cardFearful.init();
-        //Set card in the cardView
-        CardViewNative cardViewFearful = (CardViewNative)findViewById(R.id.cardFearful);
-        cardViewFearful.setCard(cardFearful);
-
-        MyPatternCard cardSurprised = new MyPatternCard(this, "Surprised");
-        cardSurprised.init();
-        //Set card in the cardView
-        CardViewNative cardViewSurprised = (CardViewNative)findViewById(R.id.cardSurprised);
-        cardViewSurprised.setCard(cardSurprised);
-
-        MyPatternCard cardSad = new MyPatternCard(this, "Sad");
-        cardSad.init();
-        //Set card in the cardView
-        CardViewNative cardViewSad = (CardViewNative)findViewById(R.id.cardSad);
-        cardViewSad.setCard(cardSad);
-
-        MyPatternCard cardDisgusted = new MyPatternCard(this, "Disgusted");
-        cardDisgusted.init();
-        //Set card in the cardView
-        CardViewNative cardViewDisgusted = (CardViewNative)findViewById(R.id.cardDisgusted);
-        cardViewDisgusted.setCard(cardDisgusted);
-
-        MyPatternCard cardAngry = new MyPatternCard(this, "Angry");
-        cardAngry.init();
-        //Set card in the cardView
-        CardViewNative cardViewAngry = (CardViewNative)findViewById(R.id.cardAngry);
-        cardViewAngry.setCard(cardAngry);
+        btnHappyList.setOnClickListener(this);
+        btnFearfulList.setOnClickListener(this);
+        btnSurprisedList.setOnClickListener(this);
+        btnSadList.setOnClickListener(this);
+        btnDisgustedList.setOnClickListener(this);
+        btnAngryList.setOnClickListener(this);
 
     }
 
-
+    @Override
+    public void onClick(View v) {
+        Intent mIntent = new Intent(this, BrowsePatterns.class);
+        switch (v.getId()){
+            case R.id.btnHappyList:
+                mIntent.putExtra("emotion", "Happy");
+                break;
+            case R.id.btnFearfulList:
+                mIntent.putExtra("emotion", "Fearful");
+                break;
+            case R.id.btnSurprisedList:
+                mIntent.putExtra("emotion", "Surprised");
+                break;
+            case R.id.btnSadList:
+                mIntent.putExtra("emotion", "Sad");
+                break;
+            case R.id.btnDisgustedList:
+                mIntent.putExtra("emotion", "Disgusted");
+                break;
+            case R.id.btnAngryList:
+                mIntent.putExtra("emotion", "Angry");
+                break;
+        }
+        startActivity(mIntent);
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -188,4 +191,6 @@ public class SeeSavedPatterns extends AppCompatActivity {
                     }
                 });
     }
+
+
 }
