@@ -29,6 +29,7 @@ public class PlayDemo extends AppCompatActivity {
     private Context mContext;
 
     private CircleLayout circleMenu;
+    private TextView tvDemoMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class PlayDemo extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
 
 
+        tvDemoMsg = (TextView)findViewById(R.id.tvDemoMsg);
+
         circleMenu = (CircleLayout)findViewById(R.id.cmEmotion);
         circleMenu.setOnItemClickListener(new CircleLayout.OnItemClickListener() {
             @Override
@@ -61,22 +64,27 @@ public class PlayDemo extends AppCompatActivity {
                 switch (view.getId()){
                     case R.id.btnHappy:
                         ConnectBT.bt.send("happy", true);
-                        System.out.println("1");
+                        tvDemoMsg.setText("'happy' sent");
                         break;
                     case R.id.btnFearful:
                         ConnectBT.bt.send("fearful", true);
+                        tvDemoMsg.setText("'fearful' sent");
                         break;
                     case R.id.btnSurprised:
                         ConnectBT.bt.send("surprised", true);
+                        tvDemoMsg.setText("'surprised' sent");
                         break;
                     case R.id.btnSad:
                         ConnectBT.bt.send("sad", true);
+                        tvDemoMsg.setText("'sad' sent");
                         break;
                     case R.id.btnDisgusted:
                         ConnectBT.bt.send("disgusted", true);
+                        tvDemoMsg.setText("'disgusted' sent");
                         break;
                     case R.id.btnAngry:
                         ConnectBT.bt.send("angry", true);
+                        tvDemoMsg.setText("'angry' sent");
                         break;
 
                 }
@@ -171,10 +179,4 @@ public class PlayDemo extends AppCompatActivity {
                     }
                 });
     }
-
-    public void onDestroy() {
-        super.onDestroy();
-        startActivity(new Intent(mContext, MainActivity.class));
-    }
-
 }

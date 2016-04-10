@@ -3,6 +3,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
     tools:context=".SeeSavedPatterns">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <it.gmariotti.cardslib.library.view.CardViewNative
+                android:id="@+id/cardHappy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+                style="@style/card_external"
+                />
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <it.gmariotti.cardslib.library.view.CardViewNative
+                android:id="@+id/cardFearful"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+                style="@style/card_external"
+                />
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <it.gmariotti.cardslib.library.view.CardViewNative
+                android:id="@+id/cardSurprised"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+                style="@style/card_external"
+                />
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <it.gmariotti.cardslib.library.view.CardViewNative
+                android:id="@+id/cardSad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+                style="@style/card_external"
+                />
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <it.gmariotti.cardslib.library.view.CardViewNative
+                android:id="@+id/cardDisgusted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+                style="@style/card_external"
+                />
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <it.gmariotti.cardslib.library.view.CardViewNative
+                android:id="@+id/cardAngry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+                style="@style/card_external"
+                />
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 
 </RelativeLayout>

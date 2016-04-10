@@ -46,7 +46,7 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.FeatureViewHol
                     intent = new Intent(v.getContext(), DesignLightPatterns.class);
                     break;
                 case 3:
-                    intent = new Intent(v.getContext(), SeeSavedPatterns.class);
+                    intent = new Intent(v.getContext(), BrowsePatterns.class);
                     break;
                 case 4:
                     intent = new Intent(v.getContext(), PlayDemo.class);

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -44,6 +45,8 @@ public class DesignLightPatterns extends AppCompatActivity {
     private MobileServiceClient mClient;
     private MobileServiceTable mTable;
     private LightPattern mLightPattern;
+    private String mType = "Light";
+    private String mName;
     private String mEmotion;
     private String mValue;
     private int mScore;
@@ -65,8 +68,10 @@ public class DesignLightPatterns extends AppCompatActivity {
     private SeekBar sbDuration;
     private TextView tvDuration;
 
+
     RadioButton rbHappy, rbFearful, rbSurprised, rbSad, rbDisgusted, rbAngry;
     private RadioGroup rgEmotions;
+    private EditText etName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,21 +206,40 @@ public class DesignLightPatterns extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(played){
-                    mLightPattern = new LightPattern();
-                    mLightPattern.setEmotion(mEmotion);
-                    mLightPattern.setValue(mValue);
-                    mLightPattern.setScore(0);
-                    mTable.insert(mLightPattern, new TableOperationCallback<LightPattern>() {
-                        public void onCompleted(LightPattern entity, Exception exception, ServiceFilterResponse response) {
-                            if (exception == null) {
-                                Toast.makeText(getApplicationContext(), "Saved!",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Save failed",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    LayoutInflater inflater = getLayoutInflater();
+                    v = inflater.inflate(R.layout.my_name_dialog, null);
+                    builder.setView(v)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mName = etName.getText().toString();
+                                    mLightPattern = new LightPattern();
+                                    mLightPattern.setName(mName);
+                                    mLightPattern.setEmotion(mEmotion);
+                                    mLightPattern.setType(mType);
+                                    mLightPattern.setValue(mValue);
+                                    mLightPattern.setScore(0);
+                                    mTable.insert(mLightPattern, new TableOperationCallback<LightPattern>() {
+                                        public void onCompleted(LightPattern entity, Exception exception, ServiceFilterResponse response) {
+                                            if (exception == null) {
+                                                Toast.makeText(getApplicationContext(), "Saved!",
+                                                        Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Save failed",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            })
+                            .setTitle("Pattern Name");
+
+                    etName = (EditText)v.findViewById(R.id.etName);
+
+                    builder.create();
+                    builder.show();
 
                     played = false;
                     btnPlay.setText("Play");
@@ -431,8 +455,4 @@ public class DesignLightPatterns extends AppCompatActivity {
                 });
     }
 
-    public void onDestroy() {
-        super.onDestroy();
-        startActivity(new Intent(mContext, MainActivity.class));
-    }
 }

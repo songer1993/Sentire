@@ -3,11 +3,13 @@ package com.project.songer1993.sentire;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +20,13 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.view.CardListView;
+import it.gmariotti.cardslib.library.view.CardViewNative;
 
 public class SeeSavedPatterns extends AppCompatActivity {
 
@@ -49,10 +58,47 @@ public class SeeSavedPatterns extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //((Toolbar) mCustomView.getParent()).setContentInsetsAbsolute(0,0);
-        }
+
+        ArrayList<MyPatternCard> cards = new ArrayList<MyPatternCard>();
+
+        MyPatternCard cardHappy = new MyPatternCard(this, "Happy");
+        cardHappy.init();
+        //Set card in the cardView
+        CardViewNative cardViewHappy = (CardViewNative)findViewById(R.id.cardHappy);
+        cardViewHappy.setCard(cardHappy);
+
+        MyPatternCard cardFearful = new MyPatternCard(this, "Fearful");
+        cardFearful.init();
+        //Set card in the cardView
+        CardViewNative cardViewFearful = (CardViewNative)findViewById(R.id.cardFearful);
+        cardViewFearful.setCard(cardFearful);
+
+        MyPatternCard cardSurprised = new MyPatternCard(this, "Surprised");
+        cardSurprised.init();
+        //Set card in the cardView
+        CardViewNative cardViewSurprised = (CardViewNative)findViewById(R.id.cardSurprised);
+        cardViewSurprised.setCard(cardSurprised);
+
+        MyPatternCard cardSad = new MyPatternCard(this, "Sad");
+        cardSad.init();
+        //Set card in the cardView
+        CardViewNative cardViewSad = (CardViewNative)findViewById(R.id.cardSad);
+        cardViewSad.setCard(cardSad);
+
+        MyPatternCard cardDisgusted = new MyPatternCard(this, "Disgusted");
+        cardDisgusted.init();
+        //Set card in the cardView
+        CardViewNative cardViewDisgusted = (CardViewNative)findViewById(R.id.cardDisgusted);
+        cardViewDisgusted.setCard(cardDisgusted);
+
+        MyPatternCard cardAngry = new MyPatternCard(this, "Angry");
+        cardAngry.init();
+        //Set card in the cardView
+        CardViewNative cardViewAngry = (CardViewNative)findViewById(R.id.cardAngry);
+        cardViewAngry.setCard(cardAngry);
+
     }
+
 
 
     @Override
@@ -141,10 +187,5 @@ public class SeeSavedPatterns extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-    }
-
-    public void onDestroy() {
-        super.onDestroy();
-        startActivity(new Intent(mContext, MainActivity.class));
     }
 }

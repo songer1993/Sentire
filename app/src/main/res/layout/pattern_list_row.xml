@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:text="Name"
+        android:id="@+id/tvPatternName"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:text="Type"
+        android:id="@+id/tvPatternType"
+        android:textColor="@color/colorPrimaryDark"/>
+
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:text="1pt"
+        android:id="@+id/tvPatternScore"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:id="@+id/btnLike"
+        android:src="@drawable/like"
+        android:adjustViewBounds="true"
+        android:maxWidth="40dp"
+        android:maxHeight="40dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:id="@+id/btnDislike"
+        android:src="@drawable/dislike"
+        android:adjustViewBounds="true"
+        android:maxWidth="40dp"
+        android:maxHeight="40dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        />
+
+
+</LinearLayout>

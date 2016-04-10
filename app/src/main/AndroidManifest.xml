@@ -19,16 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-                  android:launchMode="singleTop"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".DesignLibraryVibrationPatterns"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".DesignRealtimeVibrationPatterns" />
-        <activity android:name=".DesignLightPatterns"/>
+        <activity android:name=".DesignLightPatterns" />
         <activity android:name=".SeeSavedPatterns" />
         <activity android:name=".PlayDemo" />
-        <activity android:name=".MyDeviceList"></activity>
+        <activity android:name=".MyDeviceList" />
+        <activity android:name=".BrowsePatterns"></activity>
     </application>
 
 </manifest>

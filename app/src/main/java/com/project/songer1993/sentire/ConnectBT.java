@@ -25,7 +25,6 @@ public class ConnectBT extends AppCompatActivity {
     private Button btnConnect;
     private Button btnBypassBT;
     private ImageView phone;
-    private ImageView device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +55,6 @@ public class ConnectBT extends AppCompatActivity {
                 Toast.makeText(getApplicationContext()
                         , "Connected to " + name + "\n" + address
                         , Toast.LENGTH_SHORT).show();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        device.setVisibility(View.VISIBLE);
-                    }
-                }, 3000);
                 rippleBackground.stopRippleAnimation();
                 startMainAcitivity();
             }
@@ -105,9 +98,6 @@ public class ConnectBT extends AppCompatActivity {
                 }
             }
         });
-
-        device = (ImageView)findViewById(R.id.outerImage);
-        device.setVisibility(View.INVISIBLE);
 
         btnBypassBT = (Button)findViewById(R.id.btnBypassBT);
         btnBypassBT.setOnClickListener(new View.OnClickListener() {

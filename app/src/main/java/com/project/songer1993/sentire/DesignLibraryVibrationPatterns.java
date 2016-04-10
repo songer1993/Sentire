@@ -2,10 +2,12 @@ package com.project.songer1993.sentire;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -42,12 +44,13 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
 
     RadioButton rbHappy, rbFearful, rbSurprised, rbSad, rbDisgusted, rbAngry;
     private RadioGroup rgEmotions;
-
+    private EditText etName;
 
     private MobileServiceClient mClient;
     private MobileServiceTable mTable;
-    private VibrationPattern mVibrationPattern;
-    private String mType = "Library Effect";
+    private VibrationPattern mVibrationVibrationPattern;
+    private String mName;
+    private String mType = "Library Vibration";
     private String mEmotion;
     private String mValue;
     private int mScore;
@@ -70,10 +73,10 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
             public void onDataReceived(byte[] data, String message) {
                 // Do something when data incoming
                 int newRate = Integer.valueOf(message);
-                mScore = mVibrationPattern.getScore() + newRate;
-                mVibrationPattern.setScore(mScore);
+                mScore = mVibrationVibrationPattern.getScore() + newRate;
+                mVibrationVibrationPattern.setScore(mScore);
 
-                mTable.update(mVibrationPattern, new TableOperationCallback<VibrationPattern>() {
+                mTable.update(mVibrationVibrationPattern, new TableOperationCallback<VibrationPattern>() {
                     public void onCompleted(VibrationPattern entity, Exception exception, ServiceFilterResponse response) {
                         if (exception == null) {
                             Toast.makeText(getApplicationContext(), "Score updated!",
@@ -164,26 +167,45 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (played) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    LayoutInflater inflater = getLayoutInflater();
+                    v = inflater.inflate(R.layout.my_name_dialog, null);
+                    builder.setView(v)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mName = etName.getText().toString();
+                                    mVibrationVibrationPattern = new VibrationPattern();
+                                    mVibrationVibrationPattern.setName(mName);
+                                    mVibrationVibrationPattern.setEmotion(mEmotion);
+                                    mVibrationVibrationPattern.setType(mType);
+                                    mVibrationVibrationPattern.setValue(mValue);
+                                    mVibrationVibrationPattern.setScore(0);
+                                    mTable.insert(mVibrationVibrationPattern, new TableOperationCallback<VibrationPattern>() {
+                                        public void onCompleted(VibrationPattern entity, Exception exception, ServiceFilterResponse response) {
+                                            if (exception == null) {
+                                                Toast.makeText(getApplicationContext(), "Saved!",
+                                                        Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Save failed",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            })
+                            .setTitle("Pattern Name");
+
+                    etName = (EditText)v.findViewById(R.id.etName);
+
+                    builder.create();
+                    builder.show();
+
                     played = false;
                     btnPlay.setText("Play");
                     btnPlay.setTextColor(getApplication().getResources().getColor(R.color.secondaryText));
 
-                    mVibrationPattern = new VibrationPattern();
-                    mVibrationPattern.setEmotion(mEmotion);
-                    mVibrationPattern.setType(mType);
-                    mVibrationPattern.setValue(mValue);
-                    mVibrationPattern.setScore(0);
-                    mTable.insert(mVibrationPattern, new TableOperationCallback<VibrationPattern>() {
-                        public void onCompleted(VibrationPattern entity, Exception exception, ServiceFilterResponse response) {
-                            if (exception == null) {
-                                Toast.makeText(getApplicationContext(), "Saved!",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Save failed",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
                 }
                 else {
                     if (etEffectSequence.getText().length() != 0) {
@@ -444,8 +466,4 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
                 });
     }
 
-    public void onDestroy() {
-        super.onDestroy();
-        startActivity(new Intent(mContext, MainActivity.class));
-    }
 }
