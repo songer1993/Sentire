@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 "Vibration pattern design based on real-time waveforms",
                 "Light pattern design based on colour wheel",
                 "Saved pattern list and statistics",
-                "Test device in standard mode"};
+                "Test device in standard mode",
+                "Sync top rated patterns with device"};
 
         int [] card_colors = new int[]{
                 mContext.getResources().getColor(R.color.card_color1),

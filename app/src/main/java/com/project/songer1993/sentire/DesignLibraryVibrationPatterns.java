@@ -26,11 +26,6 @@ import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 
 import java.net.MalformedURLException;
 
@@ -38,7 +33,6 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 
 public class DesignLibraryVibrationPatterns extends AppCompatActivity {
 
-    private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
@@ -68,12 +62,19 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_library_vibration_patterns);
+        setTitle("Library Vibration Pattern");
 
-        ConnectBT.bt.send("design1", true);
+
+        //ConnectBT.bt.send("design1", true);
         ConnectBT.bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             public void onDataReceived(byte[] data, String message) {
                 // Do something when data incoming
-                int newRate = Integer.valueOf(message);
+                System.out.println(message);
+                int newRate;
+                if(message == "1")
+                    newRate = 1;
+                else
+                    newRate = -1;
                 mScore = mVibrationVibrationPattern.getScore() + newRate;
                 mVibrationVibrationPattern.setScore(mScore);
 

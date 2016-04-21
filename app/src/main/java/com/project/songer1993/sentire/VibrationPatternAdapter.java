@@ -62,6 +62,7 @@ public class VibrationPatternAdapter extends ArrayAdapter<VibrationPattern> {
             @Override
             public boolean onLongClick(View v) {
                 Toast.makeText(getContext(), currentPattern.getValue(), Toast.LENGTH_SHORT).show();
+                ConnectBT.bt.send(currentPattern.getValue(), true);
                 return false;
             }
         });

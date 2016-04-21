@@ -5,7 +5,7 @@
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="20"
         android:text="Name"
         android:id="@+id/tvPatternName"
@@ -13,7 +13,7 @@
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="50"
         android:text="Type"
         android:id="@+id/tvPatternType"
@@ -23,7 +23,7 @@
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="20"
         android:text="1pt"
         android:id="@+id/tvPatternScore"
@@ -36,8 +36,8 @@
         android:id="@+id/btnLike"
         android:src="@drawable/like"
         android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:maxHeight="40dp"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp"
         android:background="@null"
         android:scaleType="fitCenter"
         />
@@ -49,8 +49,8 @@
         android:id="@+id/btnDislike"
         android:src="@drawable/dislike"
         android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:maxHeight="40dp"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp"
         android:background="@null"
         android:scaleType="fitCenter"
         />

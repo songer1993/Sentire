@@ -23,11 +23,6 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 
 import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.ValueLinePoint;
@@ -50,7 +45,6 @@ public class DesignRealtimeVibrationPatterns extends AppCompatActivity {
     private String mValue;
     private int mScore;
 
-    private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
@@ -71,17 +65,23 @@ public class DesignRealtimeVibrationPatterns extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_realtime_vibration_patterns);
+        setTitle("Real-Time Vibration Pattern");
+
 
         // Action Bar
         mContext = this;
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
-        ConnectBT.bt.send("design2", true);
+        //ConnectBT.bt.send("design2", true);
         ConnectBT.bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             public void onDataReceived(byte[] data, String message) {
                 // Do something when data incoming
-                int newRate = Integer.valueOf(message);
+                int newRate;
+                if(message == "1")
+                    newRate = 1;
+                else
+                    newRate = -1;
                 mScore = mVibrationVibrationPattern.getScore() + newRate;
                 mVibrationVibrationPattern.setScore(mScore);
 

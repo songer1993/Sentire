@@ -26,5 +26,12 @@
     <color name="colorComplete">#63d13e</color>
     <color name="lineColor">#FE6DA8</color>
 
+    <color name="colorJoy">#f7ae35</color>
+    <color name="colorFear">#cedd47</color>
+    <color name="colorSurprise">#72c391</color>
+    <color name="colorSadness">#66c4eb</color>
+    <color name="colorDisgust">#ab5ca1</color>
+    <color name="colorAnger">#dd3386</color>
+
 
 </resources>

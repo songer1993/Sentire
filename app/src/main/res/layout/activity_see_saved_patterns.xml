@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card="http://schemas.android.com/apk/res-auto"
-    tools:context=".SeeSavedPatterns">
+    tools:context=".SeeSavedPatterns"
+    android:background="@color/colorBackground3">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,56 +13,111 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Happy Pattern List"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryText"
+                android:textSize="30sp"
+                android:background="@color/colorJoy"
                 android:id="@+id/btnHappyList"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"/>
+
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Fearful Pattern List"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryText"
+                android:textSize="30sp"
+                android:background="@color/colorFear"
                 android:id="@+id/btnFearfulList"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/btnDisgustedList"
                 android:layout_toEndOf="@+id/btnDisgustedList" />
 
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Surprised Pattern List"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryText"
+                android:textSize="30sp"
+                android:background="@color/colorSurprise"
                 android:id="@+id/btnSurprisedList"
                 android:layout_above="@+id/btnDisgustedList"
                 android:layout_toLeftOf="@+id/btnDisgustedList"
                 android:layout_toStartOf="@+id/btnDisgustedList" />
 
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Sad Pattern List"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryText"
+                android:textSize="30sp"
+                android:background="@color/colorSadness"
                 android:id="@+id/btnSadList"
                 android:layout_alignBaseline="@+id/btnDisgustedList"
                 android:layout_alignBottom="@+id/btnDisgustedList"
                 android:layout_toRightOf="@+id/btnDisgustedList"
                 android:layout_toEndOf="@+id/btnDisgustedList" />
 
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Disgusted Pattern List"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryText"
+                android:textSize="30sp"
+                android:background="@color/colorDisgust"
                 android:id="@+id/btnDisgustedList"
                 android:layout_above="@+id/btnAngryList"
                 android:layout_centerHorizontal="true" />
 
+            <!-- Empty view-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Angry Pattern List"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryText"
+                android:textSize="30sp"
+                android:background="@color/colorAnger"
                 android:id="@+id/btnAngryList"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"

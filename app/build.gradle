@@ -22,21 +22,28 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    // Android Official Libraries
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:design:22.2.0'
-    compile 'com.akexorcist:bluetoothspp:1.0.0'
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
-    compile 'com.nightonke:boommenu:1.0.6'
+
+    // THIRD-PARTY Open Source Libraries
+    // Android-BluetoothSPPLibrary: https://github.com/akexorcist/Android-BluetoothSPPLibrary
+    compile 'com.akexorcist:bluetoothspp:1.0.0'
+    // Android Ripple Background: https://github.com/skyfishjy/android-ripple-background
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    // EazeGraph: https://github.com/blackfizz/EazeGraph
     compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+    // Color Picker: https://github.com/QuadFlask/colorpicker
     compile 'com.github.QuadFlask:colorpicker:0.0.10'
-    compile 'com.github.channguyen:rsv:1.0.1'
+    // Android-Circle Menu: https://github.com/szugyi/Android-CircleMenu
     compile 'com.github.szugyi:Android-CircleMenu:1.1.1'
+    // Card Library: https://github.com/gabrielemariotti/cardslib
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
-
+    // Microsoft Azure Mobile Services Android Client Library: https://azure.microsoft.com/en-gb/documentation/articles/mobile-services-android-how-to-use-client-library/
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.google.guava:guava:18.0'
     compile 'com.microsoft.azure:azure-mobile-services-android-sdk:2.0.3'

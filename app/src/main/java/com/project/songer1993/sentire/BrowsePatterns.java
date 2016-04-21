@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,6 +28,9 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileSer
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
+import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.models.BarModel;
+
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +43,7 @@ public class BrowsePatterns extends AppCompatActivity {
 
 
     private String mEmotion;
-
+    private BarChart mBarChartVibrationPattern, mBarChartLightPattern;
     /**
      * Mobile Service Client reference
      */
@@ -84,7 +88,10 @@ public class BrowsePatterns extends AppCompatActivity {
 
 
         mEmotion = getIntent().getExtras().getString("emotion");
-        setTitle(mEmotion);
+        setTitle((mEmotion+" Pattern List"));
+
+        mBarChartVibrationPattern = (BarChart) findViewById(R.id.barchartVibrationPattern);
+        mBarChartLightPattern = (BarChart) findViewById(R.id.barchartLightPattern);
 
         mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
@@ -115,8 +122,10 @@ public class BrowsePatterns extends AppCompatActivity {
             ListView listViewVibrationPattern = (ListView) findViewById(R.id.listViewVibrationPattern);
             listViewVibrationPattern.setAdapter(mVibrationPatternAdapter);
 
+
             ListView listViewLightPattern = (ListView) findViewById(R.id.listViewLightPattern);
             listViewLightPattern.setAdapter(mLightPatternAdapter);
+
 
             // Load the items from the Mobile Service
             refreshPatternsFromTable();
@@ -244,15 +253,20 @@ public class BrowsePatterns extends AppCompatActivity {
 
                 try {
                     final List<VibrationPattern> vibrationPatterns = refreshVibrationPatternsFromMobileServiceTable();
-
+                    System.out.println(vibrationPatterns.size());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mVibrationPatternAdapter.clear();
+                            mBarChartVibrationPattern.clearChart();
 
                             for (VibrationPattern vibrationPattern : vibrationPatterns) {
                                 mVibrationPatternAdapter.add(vibrationPattern);
+                                int barColor = determineBarColor(vibrationPattern.getScore());
+                                mBarChartVibrationPattern.addBar(new BarModel(vibrationPattern.getScore(), barColor));
                             }
+
+                            mBarChartVibrationPattern.startAnimation();
                         }
                     });
                 } catch (final Exception e){
@@ -279,15 +293,19 @@ public class BrowsePatterns extends AppCompatActivity {
 
                 try {
                     final List<LightPattern> lightPatterns = refreshLightPatternsFromMobileServiceTable();
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mLightPatternAdapter.clear();
+                            mBarChartLightPattern.clearChart();
 
                             for (LightPattern lightPattern : lightPatterns) {
                                 mLightPatternAdapter.add(lightPattern);
+                                int barColor = determineBarColor(lightPattern.getScore());
+                                mBarChartLightPattern.addBar(new BarModel(lightPattern.getScore(), barColor));
                             }
+                            mBarChartLightPattern.startAnimation();
+
                         }
                     });
                 } catch (final Exception e){
@@ -466,5 +484,28 @@ public class BrowsePatterns extends AppCompatActivity {
 
             return resultFuture;
         }
+    }
+
+    private int determineBarColor(int score){
+        int barColor;
+
+        if(score<0)
+            barColor = 0xFF123456;
+        else if (score < 5)
+            barColor = 0xFF343456;
+        else if (score < 10)
+            barColor = 0xFF563456;
+        else if (score < 20)
+            barColor = 0xFF873F56;
+        else if (score < 30)
+            barColor = 0xFF56B7F1;
+        else if (score < 40)
+            barColor = 0xFF343456;
+        else if (score < 50)
+            barColor = 0xFF1FF4AC;
+        else
+            barColor = 0xFF1BA4E6;
+
+        return barColor;
     }
 }

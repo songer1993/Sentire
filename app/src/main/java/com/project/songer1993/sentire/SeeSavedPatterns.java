@@ -17,11 +17,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +29,6 @@ import it.gmariotti.cardslib.library.view.CardViewNative;
 
 public class SeeSavedPatterns extends AppCompatActivity implements View.OnClickListener{
 
-    private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
@@ -44,8 +38,9 @@ public class SeeSavedPatterns extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_saved_patterns);
+        setTitle("Saved Patterns");
 
-        ConnectBT.bt.send("design4", true);
+        //ConnectBT.bt.send("design4", true);
 
         // Action Bar
         mContext = this;

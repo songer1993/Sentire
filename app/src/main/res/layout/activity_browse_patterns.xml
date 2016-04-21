@@ -4,52 +4,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="100">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:padding="6dip" >
+        android:layout_height="0dp"
+        android:background="@color/colorBackground3"
+        android:orientation="vertical"
+        android:padding="6dip"
+        android:layout_weight="5" >
 
         <ProgressBar
             android:id="@+id/loadingProgressBar"
             android:layout_width="28dp"
-            android:layout_height="28dp" />
+            android:layout_height="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_weight="5">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="20"
+            android:text="Name"
+            android:id="@+id/tvPatternName"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="50"
+            android:text="Type"
+            android:id="@+id/tvPatternType"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="20"
+            android:text="Score"
+            android:id="@+id/tvPatternScore"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Feedback"
+            android:id="@+id/tvRate"
+            android:textColor="@color/colorPrimaryDark"/>
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:background="@color/primaryText">
+
+        <ListView
+            android:id="@+id/listViewVibrationPattern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/pattern_list_row"
+            android:padding="6dip" >
+
+        </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:background="@color/secondaryText">
+
+        <ListView
+            android:id="@+id/listViewLightPattern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/pattern_list_row"
+            android:padding="6dip" >
+
+        </ListView>
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="40">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ListView
-                android:id="@+id/listViewVibrationPattern"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/pattern_list_row"
-                android:padding="6dip" >
-
-            </ListView>
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorBackground1">
             <!-- Empty view-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <ListView
-                android:id="@+id/listViewLightPattern"
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="30dp"/>-->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/pattern_list_row"
-                android:padding="6dip" >
+                android:text="Vibration Patterns"
+                android:textStyle="bold"
+                android:textColor="@color/secondaryText"
+                android:id="@+id/tvVibrationPatterns" />
 
-            </ListView>
+            <org.eazegraph.lib.charts.BarChart
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/barchartVibrationPattern"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:padding="10dp"
+                app:egFixedBarWidth="true"
+                app:egBarWidth="20dp"
+                app:egLegendHeight="40dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Light Patterns"
+                android:textStyle="bold"
+                android:textColor="@color/secondaryText"
+                android:id="@+id/tvLigtPatterns" />
+
+            <org.eazegraph.lib.charts.BarChart
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/barchartLightPattern"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:padding="10dp"
+                app:egFixedBarWidth="true"
+                app:egBarWidth="20dp"
+                app:egLegendHeight="40dp"/>
+
 
         </LinearLayout>
-
     </ScrollView>
+
 
 </LinearLayout>

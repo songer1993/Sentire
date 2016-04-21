@@ -14,17 +14,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 import com.szugyi.circlemenu.view.CircleImageView;
 import com.szugyi.circlemenu.view.CircleLayout;
 
 public class PlayDemo extends AppCompatActivity {
 
-    private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
@@ -36,8 +30,10 @@ public class PlayDemo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_demo);
+        setTitle("Demo");
 
-        ConnectBT.bt.send("standard", true);
+
+        //ConnectBT.bt.send("standard", true);
 
         // Action Bar
         mContext = this;
@@ -53,27 +49,27 @@ public class PlayDemo extends AppCompatActivity {
             public void onItemClick(View view) {
                 switch (view.getId()){
                     case R.id.btnHappy:
-                        ConnectBT.bt.send("happy", true);
+                        ConnectBT.bt.send("0", true);
                         tvDemoMsg.setText("'happy' sent");
                         break;
                     case R.id.btnFearful:
-                        ConnectBT.bt.send("fearful", true);
+                        ConnectBT.bt.send("1", true);
                         tvDemoMsg.setText("'fearful' sent");
                         break;
                     case R.id.btnSurprised:
-                        ConnectBT.bt.send("surprised", true);
+                        ConnectBT.bt.send("2", true);
                         tvDemoMsg.setText("'surprised' sent");
                         break;
                     case R.id.btnSad:
-                        ConnectBT.bt.send("sad", true);
+                        ConnectBT.bt.send("3", true);
                         tvDemoMsg.setText("'sad' sent");
                         break;
                     case R.id.btnDisgusted:
-                        ConnectBT.bt.send("disgusted", true);
+                        ConnectBT.bt.send("4", true);
                         tvDemoMsg.setText("'disgusted' sent");
                         break;
                     case R.id.btnAngry:
-                        ConnectBT.bt.send("angry", true);
+                        ConnectBT.bt.send("5", true);
                         tvDemoMsg.setText("'angry' sent");
                         break;
 

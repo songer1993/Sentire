@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.FeatureViewHolder>{
 
+
     public static class FeatureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         static CardView cv;
         static TextView cardName;

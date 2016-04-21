@@ -27,11 +27,6 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
@@ -49,10 +44,9 @@ public class DesignLightPatterns extends AppCompatActivity {
     private String mType = "Light";
     private String mName;
     private String mEmotion;
-    private String mValue;
+    private String mValue = "";
     private int mScore;
 
-    private BoomMenuButton boomMenuButtonInActionBar;
     private ActionBar mActionBar;
     private boolean init = false;
     private Context mContext;
@@ -78,12 +72,18 @@ public class DesignLightPatterns extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design_light_patterns);
+        setTitle("Light Pattern");
 
-        ConnectBT.bt.send("design3", true);
+
+        //ConnectBT.bt.send("design3", true);
         ConnectBT.bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             public void onDataReceived(byte[] data, String message) {
                 // Do something when data incoming
-                int newRate = Integer.valueOf(message);
+                int newRate;
+                if(message == "1")
+                    newRate = 1;
+                else
+                    newRate = -1;
                 mScore = mLightPattern.getScore() + newRate;
                 mLightPattern.setScore(mScore);
 
@@ -142,6 +142,13 @@ public class DesignLightPatterns extends AppCompatActivity {
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                int r = (mColor >> 16) & 0xFF;
+                                                int g = (mColor >> 8) & 0xFF;
+                                                int b = (mColor >> 0) & 0xFF;
+                                                mValue += (new Integer(r)).toString() + ", ";
+                                                mValue += (new Integer(g)).toString() + ", ";
+                                                mValue += (new Integer(b)).toString() + ", ";
+                                                mValue += (new Integer(mDuration).toString()) + ", ";
                                                 mNumber += 1;
                                                 mPieChart.addPieSlice(new PieModel((new Integer(mNumber)).toString(), mDuration, mColor));
                                                 mDuration = 0;
@@ -238,18 +245,6 @@ public class DesignLightPatterns extends AppCompatActivity {
                     btnPlay.setTextColor(getApplication().getResources().getColor(R.color.secondaryText));
                 }
                 else {
-                    mValue = "";
-                    List<PieModel> pieSlices = mPieChart.getData();
-                    for(PieModel pieSlice: pieSlices){
-                        int color = pieSlice.getColor();
-                        int r = (color >> 16) & 0xFF;
-                        int g = (color >> 8) & 0xFF;
-                        int b = (color >> 0) & 0xFF;
-                        mValue += (new Integer(r)).toString() + ", ";
-                        mValue += (new Integer(g)).toString() + ", ";
-                        mValue += (new Integer(b)).toString() + ", ";
-                        mValue += pieSlice.getValue() + ", ";
-                    }
                     mValue = "3: "+mValue;
                     System.out.println(mValue);
                     ConnectBT.bt.send(mValue, true);
@@ -264,8 +259,10 @@ public class DesignLightPatterns extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mNumber = 0;
                 mValue = "";
                 mPieChart.clearChart();
+                mPieChart.startAnimation();
                 btnPlay.setText("Play");
                 btnPlay.setTextColor(getApplication().getResources().getColor(R.color.secondaryText));
                 played = false;
