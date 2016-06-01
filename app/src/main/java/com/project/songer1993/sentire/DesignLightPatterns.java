@@ -111,8 +111,8 @@ public class DesignLightPatterns extends AppCompatActivity {
         // Azure
         try {
             mClient = new MobileServiceClient(
-                    "https://songerarduinotest.azure-mobile.net/",
-                    "IBmOdZkslBSsjrCkJeQNvpjHOpTQYr42",
+                    Constants.MOBILE_SERVICE_URL,
+                    Constants.APPLICATION_KEY,
                     this
             );
             mTable = mClient.getTable(LightPattern.class);

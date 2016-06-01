@@ -68,28 +68,31 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.icon_realtime_vibration_patterns,
                 R.drawable.icon_light_patterns,
                 R.drawable.icon_saved_patterns,
-                R.drawable.icon_demo
+                R.drawable.icon_demo,
+                R.drawable.icon_wifi
         };
 
         String [] card_names = new String[]{"Library Patterns",
                 "Real-Time Patterns",
                 "Light Patterns",
                 "Saved Patterns",
-                "Demo"};
+                "Demo",
+                "Wi-Fi Setup"};
 
         String [] card_descriptions = new String[]{"Vibration pattern design based on DRV2605L built-in library patterns",
                 "Vibration pattern design based on real-time waveforms",
                 "Light pattern design based on colour wheel",
                 "Saved pattern list and statistics",
                 "Test device in standard mode",
-                "Sync top rated patterns with device"};
+                "Set up your device's Wi-Fi"};
 
         int [] card_colors = new int[]{
                 mContext.getResources().getColor(R.color.card_color1),
                 mContext.getResources().getColor(R.color.card_color2),
                 mContext.getResources().getColor(R.color.card_color3),
                 mContext.getResources().getColor(R.color.card_color4),
-                mContext.getResources().getColor(R.color.card_color5)
+                mContext.getResources().getColor(R.color.card_color5),
+                mContext.getResources().getColor(R.color.card_color6),
         };
 
         features = new ArrayList<>();

@@ -52,6 +52,9 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyRVAdapter.FeatureViewHol
                 case 4:
                     intent = new Intent(v.getContext(), PlayDemo.class);
                     break;
+                case 5:
+                    intent = new Intent(v.getContext(), SetupWifi.class);
+                    break;
                 default:
                     intent = new Intent(v.getContext(), MainActivity.class);
                     break;

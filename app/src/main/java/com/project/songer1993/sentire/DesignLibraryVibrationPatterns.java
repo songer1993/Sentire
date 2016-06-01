@@ -34,7 +34,6 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 public class DesignLibraryVibrationPatterns extends AppCompatActivity {
 
     private ActionBar mActionBar;
-    private boolean init = false;
     private Context mContext;
 
     RadioButton rbHappy, rbFearful, rbSurprised, rbSad, rbDisgusted, rbAngry;
@@ -64,8 +63,6 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         setContentView(R.layout.activity_design_library_vibration_patterns);
         setTitle("Library Vibration Pattern");
 
-
-        //ConnectBT.bt.send("design1", true);
         ConnectBT.bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             public void onDataReceived(byte[] data, String message) {
                 // Do something when data incoming
@@ -102,8 +99,8 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
         // Azure
         try {
             mClient = new MobileServiceClient(
-                    "https://songerarduinotest.azure-mobile.net/",
-                    "IBmOdZkslBSsjrCkJeQNvpjHOpTQYr42",
+                    Constants.MOBILE_SERVICE_URL,
+                    Constants.APPLICATION_KEY,
                     this
             );
             mTable = mClient.getTable(VibrationPattern.class);
@@ -111,10 +108,10 @@ public class DesignLibraryVibrationPatterns extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //
+        // UI elements
         etEffectSequence = (EditText)findViewById(R.id.etEffectSequence);
-
         gridView=(GridView)findViewById(R.id.gridViewCustom);
+
         // Create the Custom Adapter Object
         myGVAdapter = new MyGVAdapter(mContext);
         // Set the Adapter to GridView

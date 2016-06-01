@@ -107,8 +107,8 @@ public class EmotionFragment extends Fragment {
             // Mobile Service URL and key
             mClient =
                     new MobileServiceClient(
-                            "https://songerarduinotest.azure-mobile.net/",
-                            "IBmOdZkslBSsjrCkJeQNvpjHOpTQYr42",
+                            Constants.MOBILE_SERVICE_URL,
+                            Constants.APPLICATION_KEY,
                             getActivity()).withFilter(new ProgressFilter());
 
             // Get the Mobile Service Table instance to use

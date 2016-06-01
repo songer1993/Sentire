@@ -104,8 +104,8 @@ public class BrowsePatterns extends AppCompatActivity {
             // Mobile Service URL and key
             mClient =
                     new MobileServiceClient(
-                            "https://songerarduinotest.azure-mobile.net/",
-                            "IBmOdZkslBSsjrCkJeQNvpjHOpTQYr42",
+                            Constants.MOBILE_SERVICE_URL,
+                            Constants.APPLICATION_KEY,
                             this).withFilter(new ProgressFilter());
 
             // Get the Mobile Service Table instance to use

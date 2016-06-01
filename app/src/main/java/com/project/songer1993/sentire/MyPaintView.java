@@ -23,7 +23,7 @@ public class MyPaintView extends View {
     public int viewWidth = 0;
 
     private List<Point> allPoints=new ArrayList<Point>();
-    //接受context以及属性集合(宽度，高度等)
+
     public MyPaintView(Context context, AttributeSet attrs) {
         super(context, attrs);
         super.setOnTouchListener(new OnTouchListenerImp());
@@ -38,21 +38,20 @@ public class MyPaintView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        Paint p=new Paint();//依靠此类开始画线
+        Paint p=new Paint();
         p.setColor(getResources().getColor(R.color.colorPrimaryDark));
         if(MyPaintView.this.allPoints.size()>1){
-//如果有坐标点，开始绘图
             Iterator<Point> iter=MyPaintView.this.allPoints.iterator();
             Point first=null;
             Point last=null;
             while(iter.hasNext()){
                 if(first==null){
-                    first=(Point)iter.next();
+                    first= iter.next();
                 }else{
                     if(last!=null){
                         first=last;
                     }
-                    last=(Point)iter.next();//结束
+                    last= iter.next();//结束
                     canvas.drawLine(first.x, first.y, last.x, last.y, p);
                 }
             }
@@ -66,19 +65,19 @@ public class MyPaintView extends View {
         public boolean onTouch(View v, MotionEvent event) {
             Point p=new Point((int)event.getX(),(int)event.getY());
             if(event.getAction()==MotionEvent.ACTION_DOWN){
-//用户按下，表示重新开始保存点
+            // start to touch the screen, so restore the point array
                 MyPaintView.this.allPoints=new ArrayList<Point>();
                 MyPaintView.this.allPoints.add(p);
 
             }
             else if(event.getAction()==MotionEvent.ACTION_UP){
-//用户松开
+            // release the finger
                 MyPaintView.this.allPoints.add(p);
-                MyPaintView.this.postInvalidate();//重绘图像
+                MyPaintView.this.postInvalidate(); // redraw
             }
             else if(event.getAction()==MotionEvent.ACTION_MOVE){
                 MyPaintView.this.allPoints.add(p);
-                MyPaintView.this.postInvalidate();//重绘图像
+                MyPaintView.this.postInvalidate();// redraw
             }
             return true;
         }
@@ -89,6 +88,7 @@ public class MyPaintView extends View {
         return allPoints;
     }
 
+    // return the path
     public Path getPath(){
         Path path = new Path();
         boolean first = true;
@@ -112,6 +112,7 @@ public class MyPaintView extends View {
     }
 
 
+    // return all amplitudes
     public List<Integer> getAmplitudes(int numSamples){
         Path path = new Path();
         List<Integer> amplitudes = new ArrayList<Integer>();
@@ -137,7 +138,7 @@ public class MyPaintView extends View {
     }
 
     public void clearPoints(){
-        MyPaintView.this.postInvalidate();//重绘图像
+        MyPaintView.this.postInvalidate();// redraw
         MyPaintView.this.allPoints.clear();
         MyPaintView.this.allPoints=new ArrayList<Point>();
     }
