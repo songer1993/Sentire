@@ -139,6 +139,11 @@ public class DesignRealtimeVibrationPatterns extends AppCompatActivity {
                                     mVibrationVibrationPattern.setType(mType);
                                     mVibrationVibrationPattern.setValue(mValue);
                                     mVibrationVibrationPattern.setScore(0);
+                                    mVibrationVibrationPattern.setScoreHappy(0);
+                                    mVibrationVibrationPattern.setScoreSad(0);
+                                    mVibrationVibrationPattern.setScoreFearful(0);
+                                    mVibrationVibrationPattern.setScoreAngry(0);
+                                    mVibrationVibrationPattern.setScoreNeutral(0);
                                     mTable.insert(mVibrationVibrationPattern, new TableOperationCallback<VibrationPattern>() {
                                         public void onCompleted(VibrationPattern entity, Exception exception, ServiceFilterResponse response) {
                                             if (exception == null) {

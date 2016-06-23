@@ -220,6 +220,12 @@ public class DesignLightPatterns extends AppCompatActivity {
                                     mLightPattern.setType(mType);
                                     mLightPattern.setValue(mValue);
                                     mLightPattern.setScore(0);
+                                    mLightPattern.setScoreHappy(0);
+                                    mLightPattern.setScoreSad(0);
+                                    mLightPattern.setScoreFearful(0);
+                                    mLightPattern.setScoreAngry(0);
+                                    mLightPattern.setScoreNeutral(0);
+
                                     mTable.insert(mLightPattern, new TableOperationCallback<LightPattern>() {
                                         public void onCompleted(LightPattern entity, Exception exception, ServiceFilterResponse response) {
                                             if (exception == null) {

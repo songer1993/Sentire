@@ -363,6 +363,13 @@ public class BrowsePatterns extends AppCompatActivity {
                     tableDefinition.put("type", ColumnDataType.String);
                     tableDefinition.put("value", ColumnDataType.String);
                     tableDefinition.put("score", ColumnDataType.Integer);
+                    tableDefinition.put("score_happy", ColumnDataType.Integer);
+                    tableDefinition.put("score_sad", ColumnDataType.Integer);
+                    tableDefinition.put("score_fearful", ColumnDataType.Integer);
+                    tableDefinition.put("score_angry", ColumnDataType.Integer);
+                    tableDefinition.put("score_neutral", ColumnDataType.Integer);
+
+
 
                     localStore.defineTable("Patterns", tableDefinition);
 
